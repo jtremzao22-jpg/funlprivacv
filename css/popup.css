@@ -1,0 +1,1241 @@
+@media (min-width: 48rem) {
+
+  /* 769px */
+  .popup-overlay {
+    display: none !important;
+  }
+}
+
+/* CSS apenas para mobile */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  /* Menos padding para caber na tela sem rolagem */
+  padding: clamp(0.5rem, 2vh, 0.75rem) 0.75rem;
+  box-sizing: border-box;
+}
+
+.popup-overlay.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-container {
+  position: relative;
+  width: 100%;
+  /* Evita forçar altura grande; objetivo é caber na viewport */
+  min-height: 0;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.2);
+  font-family: "Montserrat", sans-serif;
+  /* Menos padding inferior: o CTA está no fluxo */
+  padding-bottom: clamp(0.125rem, 0.75vh, 0.375rem);
+}
+
+.popup-cover-section {
+  position: relative;
+  width: 100%;
+  /* Capa menor para liberar espaço ao CTA */
+  height: clamp(7.25rem, 18vh, 9rem);
+}
+
+.popup-cover-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.popup-cover-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.popup-profile-info {
+  position: absolute;
+  /* Menos sobreposição para precisar de menos margem no conteúdo */
+  bottom: clamp(-3.375rem, -9vh, -2.75rem);
+  left: 1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  z-index: 2;
+}
+
+.popup-profile-image {
+  width: clamp(3.75rem, 14vw, 4.5rem);
+  height: clamp(3.75rem, 14vw, 4.5rem);
+  border-radius: 50%;
+  border: 0.25rem solid #ffffff;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.popup-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.popup-profile-text {
+  padding-bottom: 0.5rem;
+}
+
+.popup-profile-name {
+  font-size: clamp(0.875rem, 4vw, 1rem);
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.popup-verified {
+  display: flex;
+  align-items: center;
+}
+
+.popup-verified svg {
+  width: clamp(1rem, 5vw, 1.125rem);
+  height: clamp(1rem, 5vw, 1.125rem);
+}
+
+.popup-profile-username {
+  font-size: clamp(0.75rem, 3.5vw, 0.875rem);
+  color: #666;
+  margin-top: 0.125rem;
+}
+
+.popup-stats {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+  color: #ffffff;
+  font-size: clamp(0.75rem, 3.5vw, 0.875rem);
+  text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+.popup-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.popup-stats i {
+  font-size: clamp(0.875rem, 4vw, 1rem);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #ffffff;
+  font-size: clamp(1rem, 5vw, 1.25rem);
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-active,
+html.popup-active {
+  overflow: hidden !important;
+  height: 100% !important;
+  /* Helps on some mobile browsers */
+  touch-action: none;
+  /* Disables touch interactions on background */
+}
+
+.popup-content {
+  /* Aumentado para não sobrepor a foto/perfil */
+  /* Reduzido novamente para subir o conteúdo e caber na tela */
+  margin-top: clamp(2.75rem, 6.5vh, 3.25rem);
+  padding: 1rem;
+}
+
+.popup-headline {
+  padding: 0 1.25rem;
+  /* Removido deslocamento negativo para descer o título */
+  margin-top: 0;
+}
+
+.popup-headline h2 {
+  font-size: clamp(0.9375rem, 4.5vw, 1.0625rem);
+  font-weight: 700;
+  color: #555555;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.popup-verification-items {
+  padding: 0 1.25rem;
+}
+
+.verification-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+
+.check-icon {
+  width: clamp(0.9rem, 3vw, 0.9rem);
+  height: clamp(0.9rem, 3vw, 0.9rem);
+  background-color: #ff6b3d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-icon i {
+  color: #ffffff;
+  font-size: clamp(0.5rem, 2.5vw, 0.5625rem);
+}
+
+.verification-item span:last-child {
+  font-size: clamp(0.875rem, 4vw, 1rem);
+  color: #424242;
+}
+
+.popup-additional-headline {
+  text-align: center;
+  margin: 1.25rem 0 0.9375rem;
+  width: 110%;
+  transform: translateX(-5%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.popup-additional-headline h3 {
+  font-size: clamp(0.75rem, 3.5vw, 0.875rem);
+  font-weight: 600;
+  color: #555;
+  line-height: 1.4;
+}
+
+.subscription-button-popup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  width: calc(100% - 1.875rem);
+  /* Coloca o botão no fluxo logo abaixo do h3 */
+  margin: 0.5rem auto 0.125rem;
+  border: none;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #f58370, #f5a55b);
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  transition: opacity 0.2s;
+  will-change: opacity;
+  /* Removida a posição absoluta para ficar logo após o h3 */
+  position: static;
+}
+
+.subscription-button-popup:hover {
+  opacity: 0.9;
+}
+
+.subscription-button-popup span {
+  font-size: clamp(1.125rem, 5vw, 1.3125rem);
+}
+
+.payment-trust {
+  /* Entra no fluxo abaixo do botão */
+  position: static;
+  margin-top: 0.375rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.trust-item i {
+  color: #ff6b3d;
+  font-size: clamp(0.625rem, 3vw, 0.75rem);
+}
+
+.trust-item span {
+  color: #666;
+  font-size: clamp(0.6rem, 2.6vw, 0.656rem);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.popup-overlay.active .popup-container {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* iPhone X, XS, 11 Pro, 12 Mini, 13 Mini */
+@media screen and (device-width: 375px) and (device-height: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .popup-container {
+    min-height: 0;
+  }
+
+  .popup-cover-section {
+    height: clamp(10rem, 28vh, 12.5rem);
+  }
+
+  .popup-content {
+    /* Acompanha o perfil um pouco mais baixo */
+    margin-top: clamp(2.5rem, 6vh, 3rem);
+  }
+
+  .popup-headline h2 {
+    font-size: clamp(1rem, 4.2vw, 1.125rem);
+    margin-bottom: 1rem;
+  }
+
+  .verification-item {
+    margin-bottom: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .verification-item span:last-child {
+    font-size: clamp(0.875rem, 3.8vw, 1rem);
+  }
+
+  .popup-additional-headline h3 {
+    font-size: clamp(0.75rem, 3.5vw, 0.875rem);
+  }
+}
+
+/* iPhone 11, XR */
+@media screen and (device-width: 414px) and (device-height: 896px) and (-webkit-min-device-pixel-ratio: 2) {
+  .popup-container {
+    min-height: 0;
+  }
+
+  .popup-cover-section {
+    height: clamp(10rem, 22vh, 11rem);
+  }
+
+  .popup-content {
+    margin-top: clamp(2.5rem, 6vh, 3rem);
+  }
+
+  .popup-headline h2 {
+    font-size: clamp(1.125rem, 4.5vw, 1.25rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .verification-item {
+    margin-bottom: 0.5rem;
+    gap: 0.625rem;
+  }
+
+  .verification-item span:last-child {
+    font-size: clamp(1rem, 4.2vw, 1.125rem);
+  }
+
+  .popup-additional-headline h3 {
+    font-size: clamp(0.875rem, 4vw, 1rem);
+    line-height: 1.3;
+  }
+}
+
+/* iPhone 12 Pro, 13 Pro, 14 Pro */
+@media screen and (device-width: 390px) and (device-height: 844px) and (-webkit-min-device-pixel-ratio: 3) {
+  .popup-container {
+    min-height: 0;
+  }
+
+  .popup-cover-section {
+    height: clamp(10rem, 22vh, 11rem);
+  }
+
+  .popup-content {
+    margin-top: clamp(2.5rem, 6vh, 3rem);
+  }
+
+  .popup-headline h2 {
+    font-size: clamp(1.125rem, 4.5vw, 1.25rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .verification-item {
+    margin-bottom: 0.5rem;
+    gap: 0.625rem;
+  }
+
+  .verification-item span:last-child {
+    font-size: clamp(1rem, 4.2vw, 1.125rem);
+  }
+
+  .popup-additional-headline h3 {
+    font-size: clamp(0.875rem, 4vw, 1rem);
+    line-height: 1.3;
+  }
+}
+
+/* iPhone 12 Pro Max, 13 Pro Max, 14 Pro Max */
+@media screen and (device-width: 428px) and (device-height: 926px) and (-webkit-min-device-pixel-ratio: 3) {
+  .popup-container {
+    min-height: 0;
+  }
+
+  .popup-cover-section {
+    height: clamp(10rem, 22vh, 11rem);
+  }
+
+  .popup-content {
+    margin-top: clamp(2.5rem, 6vh, 3rem);
+  }
+
+  .popup-headline h2 {
+    font-size: clamp(1.125rem, 4.5vw, 1.25rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .verification-item {
+    margin-bottom: 0.5rem;
+    gap: 0.625rem;
+  }
+
+  .verification-item span:last-child {
+    font-size: clamp(1rem, 4.2vw, 1.125rem);
+  }
+
+  .popup-additional-headline h3 {
+    font-size: clamp(0.875rem, 4vw, 1rem);
+    line-height: 1.3;
+  }
+}
+
+/* Payment Popup specific styles (Redesign) */
+.payment-popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.payment-popup-overlay.active {
+  display: flex !important;
+}
+
+.payment-popup-container {
+  background: #000000;
+  color: #ffffff;
+  width: 100%;
+  max-width: 360px;
+  /* Reduced from 380px for compactness */
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Banner Header */
+.pay-banner-header {
+  width: 100%;
+  height: 80px;
+  background: url('../images/monetize-banner.png') center/cover no-repeat;
+  /* object-fit: cover is handled by background-size: cover */
+  display: block;
+  border-radius: 18px 18px 0 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pay-banner-logo {
+  color: #fff;
+  font-family: 'Helvetica', sans-serif;
+  /* Fallback for logo font */
+  text-align: right;
+  line-height: 1;
+  font-size: 18px;
+  margin-right: 35px;
+  /* Space for close btn */
+  margin-top: 5px;
+}
+
+.pay-close-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  /* White X on Orange */
+  opacity: 1;
+  /* Make fully opaque for visibility */
+  font-size: 20px;
+  width: 30px;
+  /* Touch target */
+  height: 30px;
+  /* Touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  /* Ensure on top */
+}
+
+/* Profile Section */
+.pay-profile-section {
+  position: relative;
+  padding-left: 20px;
+  /* Align content */
+  margin-top: -12px !important;
+  /* Minimal overlap to clear banner */
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  margin-bottom: 25px;
+  z-index: 10;
+}
+
+.pay-profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  /* White border */
+  object-fit: cover;
+  background: #fff;
+}
+
+.pay-user-info {
+  margin-bottom: 2px;
+  /* Align text base with image base */
+}
+
+.pay-user-info h3 {
+  margin: 0 !important;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.pay-user-info p {
+  margin: 0 !important;
+  /* Removed all margin */
+  color: #888;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Benefits */
+.pay-benefits {
+  padding: 0 20px;
+  margin-bottom: 15px;
+}
+
+.pay-benefit-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.pay-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 4px;
+}
+
+.pay-benefit-item i {
+  color: #ff6b3d;
+  /* Check color */
+}
+
+/* Divider */
+.pay-divider {
+  border: 0;
+  height: 1px;
+  min-height: 1px;
+  /* Prevent flex collapse */
+  background: #555;
+  /* Lighter grey for better visibility */
+  margin: 20px 0;
+  width: 100%;
+  flex-shrink: 0;
+  /* Ensure it's not squashed */
+  display: block;
+}
+
+.pay-body {
+  padding: 0 20px 20px;
+}
+
+.pay-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ccc;
+  /* Slightly grey "Formas de pagamento" */
+  margin-bottom: 5px;
+}
+
+.pay-price-row {
+  font-size: 12px;
+  color: #888;
+}
+
+.pay-value-lg {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+/* QR Code Box */
+.pay-qr-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+
+.qr-code-box {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-pix-code-container {
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  background: #000;
+}
+
+.pay-pix-code {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  width: 100%;
+  font-family: monospace;
+  font-size: 16px;
+  /* Aumentado para 16px para evitar zoom em iOS */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+}
+
+/* Buttons */
+.pay-btn-copy {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: #ffbca8;
+  /* Solid peach from image */
+  color: #000;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 0px;
+  /* Divider follows */
+}
+
+.pay-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pay-option-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  /* White pills */
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pay-option-btn.picpay {
+  background: #f0f0f0;
+  /* Slightly off-white/light grey */
+}
+
+/* Recharge Toggle */
+.pay-recharge-row {
+  background: #1f1f1f;
+  border-radius: 999px;
+  padding: 6px 6px 6px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.pay-recharge-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+}
+
+.pay-recharge-label i {
+  color: #ffca28;
+}
+
+/* Gold/Orange wallet icon */
+
+.pay-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.pay-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pay-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.pay-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.pay-slider {
+  background-color: #ff6b3d;
+}
+
+
+input:checked+.pay-slider:before {
+  transform: translateX(20px);
+}
+
+/* New Recharge Button Design */
+.pay-recharge-btn-wrapper {
+  position: relative;
+  margin-top: 15px;
+  /* Reduced from 25px */
+  width: 100%;
+}
+
+.pay-recharge-badge {
+  position: absolute;
+  top: -8px;
+  /* Slightly adjusted */
+  left: 20px;
+  background-color: #ff7b29;
+  color: #fff;
+  font-size: 10px;
+  /* Reduced from 12px */
+  font-weight: 800;
+  padding: 3px 10px;
+  /* Reduced padding */
+  border-radius: 20px;
+  z-index: 10;
+  box-shadow: none;
+}
+
+/* Final Layout Fix: Flexbox Centered Group */
+.pay-recharge-trigger-btn {
+  width: 100%;
+  background-color: #2d2d2d;
+  border: none;
+  padding: 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 46px;
+}
+
+.recharge-content-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  /* Space between text and icon */
+  width: fit-content !important;
+  margin: 0 auto !important;
+}
+
+.pay-recharge-trigger-btn span {
+  position: static !important;
+  display: inline-block !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.pay-recharge-trigger-btn img {
+  position: static !important;
+  transform: none !important;
+  margin: 0 !important;
+  width: 20px !important;
+  height: 16px !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+}
+
+.pay-recharge-trigger-btn:hover {
+  background-color: #3d3d3d;
+}
+
+/* Credit Card Form Styles */
+.card-form {
+  margin-top: 0;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 6px;
+  /* Reduced from 10px */
+}
+
+.form-group label {
+  display: block;
+  font-size: 9px;
+  /* Reduced from 10px */
+  font-weight: 700;
+  color: #ccc;
+  margin-bottom: 3px;
+  /* Reduced from 5px */
+  text-transform: uppercase;
+}
+
+.input-wrapper {
+  position: relative;
+  background: #111;
+  /* Slightly lighter than black bg */
+  border: 1px solid #333;
+  border-radius: 999px;
+  /* Enforce pill shape */
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  /* Comfortable padding */
+  height: 40px;
+  /* Taller touch target */
+  transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: #fff;
+  /* White highlight on focus */
+  background: #000;
+}
+
+.input-wrapper i {
+  color: #888;
+  margin-right: 8px;
+  /* Reduced from 10px */
+  font-size: 12px;
+  /* Reduced from 14px */
+}
+
+.input-wrapper input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  /* Reduced from 13px */
+  outline: none;
+}
+
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.subscription-info {
+  font-size: 11px;
+  color: #ccc;
+  margin-top: 5px;
+  line-height: 1.3;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  /* Space before submit button */
+}
+
+.pay-submit-btn {
+  background: linear-gradient(90deg, #ff8c61, #ff6b3d);
+  border: none;
+  border-radius: 999px;
+  /* Pill shape */
+  width: 100%;
+  padding: 12px;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 15px;
+  /* Space between this button and secondary options */
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.pay-submit-btn:hover {
+  opacity: 0.9;
+}
+
+.card-form .pay-options {
+  display: flex;
+  gap: 10px;
+  /* Space between Pix and PicPay buttons */
+  margin-bottom: 15px;
+}
+
+/* ... existing recharge popup styles ... */
+.recharge-popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 10001;
+  /* Above payment popup */
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.recharge-popup-overlay.active {
+  display: flex !important;
+}
+
+.recharge-container {
+  width: 100%;
+  max-width: 420px;
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  border-radius: 20px;
+  /* Rounded corners like main popup */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  /* Allow auto height */
+  max-height: 90vh;
+  /* Limit to viewport height */
+  overflow-y: auto;
+  /* Scroll if content overflows */
+  padding-bottom: 20px;
+  /* Bottom spacing */
+}
+
+/* Header */
+.recharge-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.recharge-back-btn {
+  position: absolute;
+  left: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.recharge-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
+/* Main Display */
+.recharge-value-display {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.recharge-amount {
+  font-size: 36px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.recharge-control-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff6b3d;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Slider */
+.recharge-slider-container {
+  padding: 0 20px;
+  margin-bottom: 40px;
+}
+
+input[type=range].recharge-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range].recharge-slider:focus {
+  outline: none;
+}
+
+/* Track */
+input[type=range].recharge-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #333;
+  border-radius: 2px;
+}
+
+/* Thumb */
+input[type=range].recharge-slider::-webkit-slider-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ff6b3d;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+  box-shadow: 0 0 0 2px #000;
+}
+
+/* Summary Section */
+.recharge-summary-title {
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.recharge-summary-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #ccc;
+  border-bottom: 1px solid #222;
+  padding-bottom: 10px;
+}
+
+.summary-row.final {
+  border-bottom: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.bonus-text {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+/* Footer Button */
+.recharge-footer {
+  margin-top: auto;
+  padding: 20px;
+}
+
+.recharge-btn-continue {
+  width: 100%;
+  padding: 16px;
+  background: #ff6b3d;
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.recharge-btn-continue:hover {
+  opacity: 0.9;
+}
+
+#recharge-state-pix {
+  padding: 20px 30px;
+  /* Increased side padding */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Spacing */
+  /* text-align: center; Removed to allow inputs to behave normally */
+}
+
+#recharge-state-pix .pay-pix-container,
+#recharge-state-pix .pay-btn-copy,
+#recharge-state-pix .pay-option-btn {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* Fix for Registration Inputs Zoom on Mobile */
+.rounded-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 16px;
+  /* 16px stops iOS zoom */
+  outline: none;
+  box-sizing: border-box;
+  margin-top: 5px;
+  font-family: inherit;
+}
+
+.rounded-input:focus {
+  border-color: #ff6b3d;
+}
+
+.rounded-input.valid {
+  border-color: #10b981;
+  border-width: 1px;
+}
+
+.rounded-input.invalid {
+  border-color: #ef4444;
+  border-width: 1px;
+}
+
+.input-error-msg {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+  display: none;
+  font-weight: 500;
+  text-align: left;
+  padding-left: 8px;
+}
