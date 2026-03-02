@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy - Entrar ou Criar Conta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: saturate(180%) blur(20px);
+            padding: 16px 24px;
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            height: 32px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 440px;
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .login-title {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+        }
+
+        .login-subtitle {
+            font-size: 17px;
+            text-align: center;
+            color: #6e6e73;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1d1d1f;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1.5px solid #d2d2d7;
+            border-radius: 12px;
+            background: #fafafa;
+            color: #1d1d1f;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #E56A3C;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(229, 106, 60, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #86868b;
+        }
+
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #E56A3C;
+        }
+
+        .form-checkbox-label {
+            font-size: 14px;
+            color: #6e6e73;
+            cursor: pointer;
+        }
+
+        .form-checkbox-label a {
+            color: #E56A3C;
+            text-decoration: none;
+        }
+
+        .form-checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: #E56A3C;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(229, 106, 60, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .submit-button:hover {
+            background: #D85A2C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 106, 60, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .divider span {
+            padding: 0 16px;
+            color: #86868b;
+            font-size: 14px;
+        }
+
+        .social-button {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            color: #1d1d1f;
+            border: 1.5px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .social-button:hover {
+            background: #fafafa;
+            border-color: #86868b;
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .toggle-mode {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 15px;
+            color: #6e6e73;
+        }
+
+        .toggle-mode a {
+            color: #E56A3C;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toggle-mode a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-screen.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+
+        .loading-logo {
+            height: 48px;
+            margin-bottom: 40px;
+        }
+
+        .loading-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            transition: all 0.3s ease;
+        }
+
+        .loading-subtext {
+            font-size: 17px;
+            color: #6e6e73;
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .error-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-icon.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .loading-text.error {
+            color: #ff3b30;
+        }
+
+        .loading-subtext.error {
+            color: #ff3b30;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #E56A3C 0%, #D85A2C 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: none;
+        }
+
+        footer {
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+            border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+        }
+
+        footer a {
+            color: #6e6e73;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        footer a:hover {
+            color: #E56A3C;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 40px 24px;
+            }
+
+            .login-title {
+                font-size: 28px;
+            }
+
+            .login-subtitle {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="imagens/Camada-1-2.png" alt="Privacy Logo" class="logo">
+    </header>
+
+    <div class="main-container">
+        <div class="login-box">
+            <h1 class="login-title">Criar conta</h1>
+            <p class="login-subtitle">Preencha seus dados para começar</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="name">Nome completo</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        class="form-input" 
+                        placeholder="Seu nome completo"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">E-mail</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="seu@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Senha</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Mínimo 6 caracteres"
+                        required
+                        minlength="6"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirmar senha</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="form-input" 
+                        placeholder="Digite a senha novamente"
+                        required
+                        minlength="6"
+                    >
+                </div>
+
+                <div class="form-checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="terms" 
+                        class="form-checkbox"
+                        required
+                    >
+                    <label class="form-checkbox-label" for="terms">
+                        Li e aceito os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>
+                    </label>
+                </div>
+
+                <button type="button" class="submit-button" id="submitBtn">Criar minha conta</button>
+            </form>
+
+            <div class="toggle-mode">
+                Já tem uma conta? <a href="#">Fazer login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaq4Y-yc_nA1RRkYUPuQlOkpLZQyERODmDdQ&s" alt="Privacy Logo" class="loading-logo">
+            <div class="error-icon" id="errorIcon">⚠️</div>
+            <h2 class="loading-text" id="loadingText">Criando sua conta...</h2>
+            <p class="loading-subtext" id="loadingSubtext">Aguarde enquanto configuramos tudo para você</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#">Suporte</a>
+        <a href="#">Termos</a>
+        <a href="#">Privacidade</a>
+        <span>© 2024 Privacy</span>
+    </footer>
+
+    <script>
+        // CONFIGURE AQUI O LINK DE REDIRECIONAMENTO
+        const REDIRECT_URL = '/up1.html'; // ← SUBSTITUA PELO SEU LINK
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            
+            // Validação das senhas
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem. Por favor, verifique.');
+                return;
+            }
+            
+            // Mostra a tela de loading
+            document.getElementById('loadingScreen').classList.add('active');
+            
+            // Animação da barra de progresso
+            let progress = 0;
+            let phase = 1;
+            
+            const interval = setInterval(() => {
+                // Fase 1: Criando conta (0-30%)
+                if (phase === 1) {
+                    progress += 2;
+                    if (progress >= 30) {
+                        phase = 2;
+                        document.getElementById('loadingText').textContent = 'Carregando seus dados...';
+                        document.getElementById('loadingSubtext').textContent = 'Verificando informações da conta';
+                    }
+                }
+                // Fase 2: Carregando dados (30-60%)
+                else if (phase === 2) {
+                    progress += 2;
+                    if (progress >= 60) {
+                        phase = 3;
+                        document.getElementById('loadingText').textContent = 'Verificação de segurança...';
+                        document.getElementById('loadingSubtext').textContent = 'Analisando atividades suspeitas';
+                    }
+                }
+                // Fase 3: Verificação (60-100%)
+                else if (phase === 3) {
+                    progress += 1.5;
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        // Mostra erro
+                        document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #ff3b30 0%, #ff453a 100%)';
+                        document.getElementById('loadingText').textContent = 'Atenção: Spam detectado!';
+                        document.getElementById('loadingText').classList.add('error');
+                        document.getElementById('loadingSubtext').textContent = 'Foi identificado atividade suspeita de spam na sua conta';
+                        document.getElementById('loadingSubtext').classList.add('error');
+                        document.getElementById('errorIcon').classList.add('show');
+                        
+                        // Redireciona após 2.5 segundos
+                        setTimeout(() => {
+                            window.location.href = REDIRECT_URL;
+                        }, 2500);
+                    }
+                }
+                
+                document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
+            }, 50);
+        });
+    </script>
+</body>
+</html>
