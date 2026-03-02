@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OnlyFans - Oferta Exclusiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --of-blue: #00aff0;
+            --of-blue-dark: #008fcc;
+            --accent-red: #ff3b30;
+            --bg-body: #0f171e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-body);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        #notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        #notification-container div { pointer-events: auto; }
+
+        .mute-popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+
+        .mute-btn {
+            background: var(--of-blue);
+            color: white;
+            border: none;
+            padding: 25px 40px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 30px rgba(0, 175, 240, 0.5);
+            animation: pulse-ring 2s infinite;
+            cursor: pointer;
+        }
+
+        .urgency-bar {
+            background: var(--accent-red);
+            width: 100%;
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        header img { height: 30px; }
+
+        .main-card {
+            width: 92%;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .video-box {
+            position: relative;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--of-blue);
+            box-shadow: 0 0 25px rgba(0, 175, 240, 0.3);
+            margin-bottom: 25px;
+        }
+
+        video { width: 100%; display: block; }
+
+        .price-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @keyframes titlePulse {
+            0% { transform: scale(1); text-shadow: 0 0 5px var(--of-blue); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px var(--of-blue), 0 0 30px var(--of-blue); }
+            100% { transform: scale(1); text-shadow: 0 0 5px var(--of-blue); }
+        }
+
+        .highlight-title {
+            color: var(--of-blue); 
+            font-weight: 900; 
+            font-size: 24px;
+            text-transform: uppercase;
+            animation: titlePulse 2s infinite ease-in-out;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .new-price {
+            display: block;
+            font-size: 52px;
+            font-weight: 900;
+            color: #fff;
+            margin: 5px 0;
+        }
+
+        .cta-button {
+            display: block;
+            background: linear-gradient(180deg, #00AFF0 0%, #007bb0 100%);
+            color: white;
+            text-decoration: none;
+            padding: 22px;
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 10px 25px rgba(0, 175, 240, 0.4);
+            margin-bottom: 15px;
+            border-bottom: 4px solid #005a82;
+            text-transform: uppercase;
+        }
+
+        .skip-offer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 25px;
+            border: 1px solid #333;
+            border-radius: 50px;
+            margin-top: 15px;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(0, 175, 240, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 175, 240, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 175, 240, 0); }
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 30px;
+            font-size: 11px;
+            color: #444;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="notification-container"></div>
+
+    <div class="mute-popup" id="mute-popup">
+        <button class="mute-btn" id="activate-sound">
+            <i class="fas fa-volume-up fa-2x"></i>
+            CLIQUE PARA ATIVAR O SOM
+        </button>
+    </div>
+
+    <div class="urgency-bar">⚠️ OFERTA ÚNICA: SEU ACESSO ESTÁ DISPONÍVEL</div>
+
+    <div class="main-card">
+        <div class="video-box">
+            <video id="video-player" playsinline loop controls>
+                <source src="media/upsell1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="price-container">
+            <div class="highlight-title">ACESSO AO ONLYFANS</div>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px; line-height: 1.4;">
+                Assine agora e receba todos os brindes exclusivos prometidos no vídeo.
+            </p>
+            
+            <span style="text-decoration: line-through; color: #777; font-size: 16px;">De R$ 97,00 por:</span>
+            <span class="new-price">R$ 17,90</span>
+            <div style="font-size: 11px; color: #00aff0; font-weight: 700; letter-spacing: 1px;">PAGAMENTO ÚNICO</div>
+        </div>
+
+        <a href="https://ambienteseguro.org.ua/c/61305c17aa" class="cta-button" id="main-cta">
+            QUERO MEU ACESSO AGORA!
+        </a>
+
+        <a href="https://t.me/+52JKxcimZNU4N2Yx" class="skip-offer" id="skip-link">
+            Não tenho interesse nessa oportunidade <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <footer>
+        <div style="margin-bottom: 10px;"><i class="fas fa-lock"></i> Compra Protegida</div>
+        &copy; 2026 OnlyFans Entertainment Inc.
+    </footer>
+
+    <script>
+        // FUNÇÃO PARA PASSAR UTMs
+        function ajustarLinksComUtms() {
+            const queryString = window.location.search;
+            if (queryString) {
+                const linksParaAtualizar = ['main-cta', 'skip-link'];
+                linksParaAtualizar.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        const separator = el.href.includes('?') ? '&' : '?';
+                        el.href += separator + queryString.substring(1);
+                    }
+                });
+            }
+        }
+
+        const names = ["Alessandro Silva", "Carlos Eduardo", "João Pedro", "Rafael Santos", "Bruno Costa", "Felipe Oliveira", "Gustavo Lima", "Lucas Almeida", "Thiago Ferreira", "Diego Rocha", "Marcelo Souza", "André Pereira", "Roberto Martins", "Fernando Gomes", "Paulo Henrique", "Mateus Silva", "Gabriel Santos", "Leonardo Costa", "Ricardo Barbosa", "Julio César", "Rodrigo Alves", "Vinicius Lima", "Fabio Nascimento", "Eduardo Santos"];
+        const eligiblePlans = ["Assinatura ao Onlyfans"];
+        let notifMuted = false;
+
+        function createNotification(name, plan, timeAgo) {
+            const container = document.getElementById('notification-container');
+            if (!container || notifMuted || container.children.length > 0) return;
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                background: #1f2c34; color: #fff; padding: 12px 15px; border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: sans-serif; font-size: 13px;
+                transform: translateX(400px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-left: 4px solid #00aff0; min-width: 280px; cursor: pointer;
+            `;
+            notification.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="background: #00aff0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-check" style="color: white; font-size: 12px;"></i></div><div><strong>${name}</strong> assinou o <span style="color:#00aff0; font-weight:700;">${plan}</span><div style="font-size: 10px; color: #8696a0; margin-top: 2px;">${timeAgo}</div></div></div>`;
+            container.appendChild(notification);
+            notification.onclick = () => { notifMuted = true; notification.style.transform = 'translateX(400px)'; };
+            setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
+            setTimeout(() => { notification.style.transform = 'translateX(400px)'; setTimeout(() => { if (notification.parentNode) notification.parentNode.removeChild(notification); }, 500); }, 4000);
+        }
+
+        function startNotifications() {
+            const loop = () => {
+                if (notifMuted) return;
+                setTimeout(() => {
+                    const name = names[Math.floor(Math.random() * names.length)];
+                    const plan = eligiblePlans[Math.floor(Math.random() * eligiblePlans.length)];
+                    createNotification(name, plan, "agora mesmo");
+                    loop();
+                }, 15000 + Math.random() * 10000);
+            };
+            loop();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chama a função de UTMs assim que carrega
+            ajustarLinksComUtms();
+
+            const btn = document.getElementById('activate-sound');
+            const video = document.getElementById('video-player');
+            const popup = document.getElementById('mute-popup');
+            btn.onclick = () => {
+                video.muted = false;
+                video.play();
+                popup.style.display = 'none';
+                startNotifications();
+            };
+        });
+    </script>
+</body>
+</html>
