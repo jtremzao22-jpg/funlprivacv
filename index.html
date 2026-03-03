@@ -2430,37 +2430,43 @@
       const chevron = document.querySelector(".chevron");
       let promotionsOpen = true;
 
-     // Append UTMs to checkout links (inclui xTracky e UTMs da URL)
-function getUtmsToAppend() {
-  // Pega UTMs da URL atual
-  const params = new URLSearchParams(window.location.search);
+     // Append UTMs to checkout links — roda no clique para pegar localStorage do xTracky
+      function getUtmsToAppend() {
+        const params = new URLSearchParams(window.location.search);
+        try {
+          const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','src'];
+          keys.forEach(k => {
+            const val = localStorage.getItem(k) || localStorage.getItem('xtracky_' + k);
+            if (val && !params.has(k)) params.set(k, val);
+          });
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.toLowerCase().startsWith('utm_') && !params.has(key)) {
+              params.set(key, localStorage.getItem(key));
+            }
+          }
+        } catch(e) {}
+        return params.toString();
+      }
 
-  // Tenta pegar do localStorage também (xTracky salva aqui)
-  try {
-    const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','src'];
-    keys.forEach(k => {
-      const val = localStorage.getItem(k) || localStorage.getItem('xtracky_' + k);
-      if (val && !params.has(k)) params.set(k, val);
-    });
-  } catch(e) {}
+      function appendUtmsToUrl(baseUrl) {
+        const utms = getUtmsToAppend();
+        if (!utms) return baseUrl;
+        return baseUrl + (baseUrl.includes('?') ? '&' : '?') + utms;
+      }
 
-  return params.toString();
-}
-
-function appendUtmsToUrl(baseUrl) {
-  const utms = getUtmsToAppend();
-  if (!utms) return baseUrl;
-  return baseUrl + (baseUrl.includes('?') ? '&' : '?') + utms;
-}
-
-// Sobrescreve todos os onclicks dos botões de checkout
-document.querySelectorAll('a[onclick*="pagamentos-seguro"], a[onclick*="ambienteseguro"]').forEach(a => {
-  const match = a.getAttribute('onclick').match(/window\.location\.href='([^']+)'/);
-  if (match) {
-    const originalUrl = match[1];
-    a.setAttribute('onclick', `window.location.href='${appendUtmsToUrl(originalUrl)}'`);
-  }
-});
+      // Intercepta clique e injeta UTMs na hora (não no load)
+      document.querySelectorAll('a[onclick*="pagamentos-seguro"], a[onclick*="ambienteseguro"]').forEach(a => {
+        const match = a.getAttribute('onclick').match(/window\.location\.href='([^']+)'/);
+        if (match) {
+          const originalUrl = match[1];
+          a.removeAttribute('onclick');
+          a.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = appendUtmsToUrl(originalUrl);
+          });
+        }
+      });
 
       // Content tabs
       const tabs = document.querySelectorAll(".tab");
