@@ -2430,39 +2430,37 @@
       const chevron = document.querySelector(".chevron");
       let promotionsOpen = true;
 
-      // Append current query string (UTMs) to pricing links
-      const planLinks = document.querySelectorAll(
-        ".pricing-panel a[href^='https://'], .footer-cta a[href^='https://']"
-      );
-      if (window.location.search) {
-        planLinks.forEach((a) => {
-          try {
-            const url = new URL(a.href);
-            if (url.search && url.search.length > 1) {
-              // Already has params; append
-              a.href = a.href + "&" + window.location.search.substring(1);
-            } else {
-              a.href = a.href + window.location.search;
-            }
-          } catch (e) { }
-        });
-      }
+     // Append UTMs to checkout links (inclui xTracky e UTMs da URL)
+function getUtmsToAppend() {
+  // Pega UTMs da URL atual
+  const params = new URLSearchParams(window.location.search);
 
-      promotionsHeader.addEventListener("click", () => {
-        promotionsOpen = !promotionsOpen;
+  // Tenta pegar do localStorage também (xTracky salva aqui)
+  try {
+    const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','src'];
+    keys.forEach(k => {
+      const val = localStorage.getItem(k) || localStorage.getItem('xtracky_' + k);
+      if (val && !params.has(k)) params.set(k, val);
+    });
+  } catch(e) {}
 
-        if (promotionsOpen) {
-          promotionsButtons.forEach((button) => {
-            button.style.display = "block";
-          });
-          chevron.style.transform = "rotate(0deg)";
-        } else {
-          promotionsButtons.forEach((button) => {
-            button.style.display = "none";
-          });
-          chevron.style.transform = "rotate(-90deg)";
-        }
-      });
+  return params.toString();
+}
+
+function appendUtmsToUrl(baseUrl) {
+  const utms = getUtmsToAppend();
+  if (!utms) return baseUrl;
+  return baseUrl + (baseUrl.includes('?') ? '&' : '?') + utms;
+}
+
+// Sobrescreve todos os onclicks dos botões de checkout
+document.querySelectorAll('a[onclick*="pagamentos-seguro"], a[onclick*="ambienteseguro"]').forEach(a => {
+  const match = a.getAttribute('onclick').match(/window\.location\.href='([^']+)'/);
+  if (match) {
+    const originalUrl = match[1];
+    a.setAttribute('onclick', `window.location.href='${appendUtmsToUrl(originalUrl)}'`);
+  }
+});
 
       // Content tabs
       const tabs = document.querySelectorAll(".tab");
