@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liberação VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body style="margin:0;background:#ffffff;font-family:'Inter',sans-serif;color:#111;-webkit-font-smoothing:antialiased;">
+
+<div style="max-width:480px;margin:auto;padding:24px 20px 40px 20px;">
+<!-- LOGO -->
+<div style="text-align:center;margin-bottom:20px;">
+<img src="https://tm.ibxk.com.br/2022/07/27/27155713482068.jpg?ims=1200x675" 
+style="width:120px;max-width:60%;">
+</div>
+<!-- HEADLINE -->
+<h1 style="font-size:22px;font-weight:800;text-align:center;margin-bottom:16px;">
+Olá, membro VIP
+</h1>
+
+<p style="font-size:15px;line-height:1.6;color:#444;text-align:center;margin-bottom:20px;">
+Sabemos que muitos membros desejam baixar os conteúdos no celular para acessar sempre que quiser.
+</p>
+
+<p style="font-size:15px;line-height:1.6;color:#444;text-align:center;margin-bottom:24px;">
+Por isso foi criada a <b>Taxa de Liberação de Uso</b> no valor simbólico de
+<span style="color:#ff6a00;font-weight:800;">R$ 15,53</span>.
+</p>
+
+<!-- BENEFÍCIOS -->
+<div style="background:#fff7f2;border:1px solid #ffe1d4;padding:18px;border-radius:16px;margin-bottom:26px;">
+<p style="font-weight:700;margin-bottom:12px;">Essa liberação garante:</p>
+<ul style="padding-left:18px;color:#333;font-size:14px;line-height:1.8;margin:0;">
+<li>✔ Autorização para download</li>
+<li>✔ Uso pessoal das mídias</li>
+<li>✔ Acesso sem restrições</li>
+</ul>
+</div>
+
+<!-- BOTÃO CENTRAL -->
+<div style="text-align:center;margin:30px 0;">
+<a href="https://www.pagamentos-seguro.link/checkout/51661853-1b6d-4c50-a648-e7affb75e5ed"
+style="
+display:inline-block;
+width:100%;
+background:#ff6a00;
+color:#fff;
+padding:18px;
+border-radius:16px;
+font-weight:800;
+font-size:17px;
+text-decoration:none;
+box-shadow:0 10px 30px rgba(255,106,0,.35);
+animation:pulse 1.6s infinite;
+">
+LIBERAR ACESSO POR R$ 15,53
+</a>
+</div>
+
+<!-- PREÇO -->
+<div style="text-align:center;margin-bottom:20px;">
+<div style="font-size:14px;color:#777;margin-bottom:4px;">
+Pagamento único
+</div>
+<div style="font-size:26px;font-weight:800;color:#ff6a00;">
+R$ 15,53
+</div>
+</div>
+
+<!-- TIMER -->
+<div style="background:#fff1e6;padding:14px;border-radius:14px;text-align:center;margin-bottom:30px;">
+<div style="font-size:13px;color:#ff6a00;font-weight:700;margin-bottom:6px;">
+Oferta expira em:
+</div>
+<div id="timer" style="font-size:22px;font-weight:800;">
+05:00
+</div>
+</div>
+
+<p style="font-size:12px;color:#777;text-align:center;">
+Liberação imediata • Acesso vitalício • Seguro
+</p>
+
+</div>
+
+<!-- RODAPÉ BONITO -->
+<footer style="background:#f8f8f8;padding:30px 20px;margin-top:40px;border-top:1px solid #eee;">
+<div style="max-width:480px;margin:auto;text-align:center;">
+
+<div style="font-weight:700;margin-bottom:15px;color:#333;">
+Canal VIP
+</div>
+
+<div style="margin-bottom:15px;">
+<a href="#" style="display:inline-block;margin:6px 10px;color:#666;text-decoration:none;font-size:14px;">
+Termos de Uso
+</a>
+<a href="#" style="display:inline-block;margin:6px 10px;color:#666;text-decoration:none;font-size:14px;">
+Política de Privacidade
+</a>
+<a href="#" style="display:inline-block;margin:6px 10px;color:#666;text-decoration:none;font-size:14px;">
+Suporte
+</a>
+</div>
+
+<div style="font-size:12px;color:#999;">
+© 2026 Canal VIP • Todos os direitos reservados
+</div>
+
+</div>
+</footer>
+
+<!-- ANIMAÇÃO -->
+<style>
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.04); }
+100% { transform: scale(1); }
+}
+a:hover { opacity:0.9; }
+</style>
+
+<!-- TIMER SCRIPT -->
+<script>
+let time = 300;
+const timer = document.getElementById("timer");
+setInterval(() => {
+if(time > 0){
+time--;
+let min = Math.floor(time / 60);
+let sec = time % 60;
+timer.innerHTML =
+String(min).padStart(2,'0') + ":" +
+String(sec).padStart(2,'0');
+}
+},1000);
+</script>
+
+</body>
+</html>
