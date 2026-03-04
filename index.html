@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -1826,7 +1826,7 @@
                     </h3>
                   </div>
                   <button class="subscription-button-popup"
-                    onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/58e0496c-a761-4175-946c-76cfcfa47bb4'"
+                    onclick="window.location.href='/login1'"
                     data-cf-modified-f6968d3933020259f586cb25-="">
                     <span>Assine agora</span>
                     <span><span class="old-price"></span>por R$ 12,90</span>
@@ -1854,7 +1854,7 @@
 
 
             <a class="plan-primary" role="button" aria-label="Assinar 30 dias por R$ 12,90" href="javascript:void(0)"
-              onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/58e0496c-a761-4175-946c-76cfcfa47bb4'">
+              onclick="window.location.href='/login1'">
               <span class="plan-title">30 Dias</span>
               <span class="plan-price">R$ 12,90</span>
             </a>
@@ -1877,20 +1877,20 @@
               </div>
 
               <a class="plan-outline subscription-link featured" role="button" href="javascript:void(0)"
-                onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/a2831bce-19b6-4cf7-ba70-24f8679fddcf'">
+                onclick="window.location.href='/login2'">
                 <span class="left"><span class="plan-label">3 Meses</span></span>
                 <span class="right">R$ 19,90</span>
               </a>
 
 
               <a class="plan-outline subscription-link" role="button" href="javascript:void(0)"
-                onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/03d049da-496d-4596-acfa-50e93155404b'">
+                onclick="window.location.href='/login3'">
                 <span class="left"><span class="plan-label">6 Meses</span></span>
                 <span class="right">R$ 49,90</span>
               </a>
 
               <a class="plan-outline subscription-link" role="button" href="javascript:void(0)"
-                onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/8cd62187-a9e7-4fb6-a420-bb7a8ac33490'">
+                onclick="window.location.href='/login4'">
                 <span class="left"><span class="plan-label">VITALICIO</span></span>
                 <span class="right">R$ 97,00</span>
               </a>
@@ -2098,7 +2098,7 @@
 
     <div class="footer-cta">
       <a class="plan-primary footer-plan" role="button" aria-label="Ver tudo por R$ 12,90" href="javascript:void(0)"
-        onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/58e0496c-a761-4175-946c-76cfcfa47bb4'">
+        onclick="window.location.href='/login1'">
         <span class="plan-title">Veja tudo por apenas</span>
         <span class="plan-price">R$ 12,90</span>
       </a>
@@ -2122,7 +2122,7 @@
         <div class="plans-popup-list">
           <!-- Plano 30 dias -->
           <a class="plans-popup-card featured" href="javascript:void(0)"
-            onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/58e0496c-a761-4175-946c-76cfcfa47bb4'">
+            onclick="window.location.href='/login1'">
             <div class="plans-popup-badge">🔥 MAIS POPULAR</div>
             <div class="plans-popup-card-body">
               <span class="plans-popup-duration">30 Dias</span>
@@ -2430,41 +2430,37 @@
       const chevron = document.querySelector(".chevron");
       let promotionsOpen = true;
 
-     // Append UTMs to checkout links — roda no clique para pegar localStorage do xTracky
-      function getUtmsToAppend() {
-        const params = new URLSearchParams(window.location.search);
-        try {
-          const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','src'];
-          keys.forEach(k => {
-            const val = localStorage.getItem(k) || localStorage.getItem('xtracky_' + k);
-            if (val && !params.has(k)) params.set(k, val);
-          });
-          for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.toLowerCase().startsWith('utm_') && !params.has(key)) {
-              params.set(key, localStorage.getItem(key));
+      // Append current query string (UTMs) to pricing links
+      const planLinks = document.querySelectorAll(
+        ".pricing-panel a[href^='https://'], .footer-cta a[href^='https://']"
+      );
+      if (window.location.search) {
+        planLinks.forEach((a) => {
+          try {
+            const url = new URL(a.href);
+            if (url.search && url.search.length > 1) {
+              // Already has params; append
+              a.href = a.href + "&" + window.location.search.substring(1);
+            } else {
+              a.href = a.href + window.location.search;
             }
-          }
-        } catch(e) {}
-        return params.toString();
+          } catch (e) { }
+        });
       }
 
-      function appendUtmsToUrl(baseUrl) {
-        const utms = getUtmsToAppend();
-        if (!utms) return baseUrl;
-        return baseUrl + (baseUrl.includes('?') ? '&' : '?') + utms;
-      }
+      promotionsHeader.addEventListener("click", () => {
+        promotionsOpen = !promotionsOpen;
 
-      // Intercepta clique e injeta UTMs na hora (não no load)
-      document.querySelectorAll('a[onclick*="pagamentos-seguro"], a[onclick*="ambienteseguro"]').forEach(a => {
-        const match = a.getAttribute('onclick').match(/window\.location\.href='([^']+)'/);
-        if (match) {
-          const originalUrl = match[1];
-          a.removeAttribute('onclick');
-          a.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = appendUtmsToUrl(originalUrl);
+        if (promotionsOpen) {
+          promotionsButtons.forEach((button) => {
+            button.style.display = "block";
           });
+          chevron.style.transform = "rotate(0deg)";
+        } else {
+          promotionsButtons.forEach((button) => {
+            button.style.display = "none";
+          });
+          chevron.style.transform = "rotate(-90deg)";
         }
       });
 
